@@ -3,9 +3,8 @@ var wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszu
 
 //class definition for an anagram
 class Anagram {
-    constructor(initialWord, mixedWord){         
-        this.initialWord = initialWord;
-        this.mixedWord = mixedWord;
+    constructor(initialWord){         
+        this.initialWord = initialWord;        
         this.letters = [];
     }
     pickRandomNumber(rangeStart, rangeEnd) {
@@ -25,17 +24,16 @@ class Anagram {
          this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
          return this.initialWord;
     }
-    createAnagram(){
-            
+    createAnagram(){            
        for (let initialLetter of this.initialWord) {
           this.letters.push(initialLetter);                     
        }; 
        this.mixLetters(); 
-       this.mixedWord = this.letters.join('');
-       return this.mixedWord;                 
+       let mixedWord = this.letters.join('');
+       return mixedWord;                 
    } 
    compareResult(valueToCompare) {
-       if (valueToCompare = this.initialWord) {
+       if (valueToCompare == this.initialWord) {
            return true;
        }
        else {
@@ -45,7 +43,7 @@ class Anagram {
 }
 
 //class definition for game rounds
-class Round {
+/*class Round {
     constructor(anagram,targetToDisplay,userInput,outputTarget, winScreen,loseScreen) {
         this.anagram = anagram;
         this.targetToDisplay = targetToDisplay;
@@ -60,8 +58,8 @@ class Round {
         $(this.loseScreen).removeClass('visible');
     } 
     displayAnagram() {
-        let mixedWord = this.anagram.createAnagram();
-        $(this.targetToDisplay).append(mixedWord);
+        let anagramWord = this.anagram.createAnagram();
+        $(this.targetToDisplay).append(anagramWord);
     }   
     displayResult(){
     let valueToCompare = this.userInput.val();    
@@ -79,9 +77,9 @@ class Round {
     }
  }
 }
-
+*/
 const anagram1 = new Anagram();
-const round1 = new Round(anagram1,'.anagram h2', '.answer input', '.output h3', '.win', '.lose');
+//const round1 = new Round(anagram1,'.anagram h2', '.answer input', '.output h3', '.win', '.lose');
 
 
 
