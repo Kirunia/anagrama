@@ -1,18 +1,11 @@
 var wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszula", "inwestygacja","algorytm", "dupa", "dziunia", "smoczek", "papierosy","wiosna"];
-// game definitions
-class Game {
-    constructor(initialWord) {
-        this.initialWord = initialWord;
-    }
-    pickWord() {
-        this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
-        return initialWord;
-    }
-}
+
+
 //class definition for an anagram
 class Anagram {
-    constructor(wordToMix){         
-        this.wordToMix = wordToMix;
+    constructor(initialWord, mixedWord){         
+        this.initialWord = initialWord;
+        this.mixedWord = mixedWord;
         this.letters = [];
     }
     pickRandomNumber(rangeStart, rangeEnd) {
@@ -28,36 +21,53 @@ class Anagram {
         this.letters[randomNumber] = letterToReplace;             
         }  
     }
-    createAnagram(wordToMix){             
-       for (let initialLetter of this.wordToMix) {
+    pickWord() {
+         this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
+         return this.initialWord;
+    }
+    createAnagram(){
+            
+       for (let initialLetter of this.initialWord) {
           this.letters.push(initialLetter);                     
        }; 
        this.mixLetters(); 
-       let mixedWord = this.letters.join('');
-       return mixedWord;                 
-   }   
+       this.mixedWord = this.letters.join('');
+       return this.mixedWord;                 
+   } 
+   compareResult(valueToCompare) {
+       if (valueToCompare = this.initialWord) {
+           return true;
+       }
+       else {
+           return false;
+       }
+   }  
 }
+
 //class definition for game rounds
 class Round {
-    constructor(initialWord, mixedWord, targetToDisplay, userInput, outputTarget, winScreen, loseScreen) {
-        this.initialWord = initialWord;
-        this.mixedWord = mixedWord;
+    constructor(anagram,targetToDisplay,userInput,outputTarget, winScreen,loseScreen) {
+        this.anagram = anagram;
         this.targetToDisplay = targetToDisplay;
         this.userInput = userInput;
         this.outputTarget = outputTarget;
     }
-    
     cleanScreen(){
         $(this.targetToDisplay).empty();
         $(this.outputTarget).empty();
         $(this.userInput).val('');
         $(this.winScreen).removeClass('visible');
         $(this.loseScreen).removeClass('visible');
-    }    
-    compareResult(){
-    let userInputValue = this.userInput.val();
+    } 
+    displayAnagram() {
+        let mixedWord = this.anagram.createAnagram();
+        $(this.targetToDisplay).append(mixedWord);
+    }   
+    displayResult(){
+    let valueToCompare = this.userInput.val();    
+    let result = this.anagram.compareResult(valueToCompare);
     $(this.outputTarget).empty();
-    if (userInputValue == initialWord) {
+    if (result == true) {
         $(this.outputTarget).append('You win!');
         $(this.winScreen).addClass('visible');
         $(this.loseScreen).removeClass('visible');
@@ -68,17 +78,10 @@ class Round {
         $(this.winScreen).removeClass('visible');
     }
  }
- displayAnagram(){     
-     $(this.targetToDisplay).append(mixedWord);
-    }
 }
 
-
-const game1 = new Game();
-const anagram1 = new Anagram(game1.pickWord());
-const round1 = new Round(game1.pickWord(), anagram1.createAnagram() , '.answer input', '.output h3', '.win', '.lose');
-
-
+const anagram1 = new Anagram();
+const round1 = new Round(anagram1,'.anagram h2', '.answer input', '.output h3', '.win', '.lose');
 
 
 
@@ -98,7 +101,6 @@ $(document).ready(function(){
         newGame(); 
     });   
 })*/
-
 
 
 
