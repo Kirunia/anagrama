@@ -1,29 +1,30 @@
-var wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszula", "inwestygacja","algorytm", "dupa", "dziunia", "smoczek", "papierosy","wiosna"];
+let wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszula", "inwestygacja","algorytm", "dupa", "dziunia", "smoczek", "papierosy","wiosna"];
 
 function pickWord() {
         let initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
         return initialWord;
     }
+function pickRandomNumber(rangeStart, rangeEnd) {
+    let randomNumber = rangeStart + Math.floor(Math.random() * (rangeEnd - (rangeStart + 1)));
+    return randomNumber;
+}    
 //class definition for an anagram
 class Anagram {
     constructor(initialWord){         
         this.initialWord = initialWord;        
         this.letters = [];
-    }
-    pickRandomNumber(rangeStart, rangeEnd) {
-    let randomNumber = rangeStart + Math.floor(Math.random() * (rangeEnd - (rangeStart + 1)));
-    return randomNumber;
-    }
+    }    
     mixLetters() {
-    for (var j = 0; j < this.letters.length; j++) {
+    for (let j = 0; j < this.letters.length; j++) {
         let letterToReplace = this.letters[j];
-        let randomNumber = this.pickRandomNumber(j + 1, this.letters.length);
+        let randomNumber = pickRandomNumber(j + 1, this.letters.length);
         let letterToReplaceWith = this.letters[randomNumber];
         this.letters[j] = letterToReplaceWith;
         this.letters[randomNumber] = letterToReplace;             
         }  
     }
-    createAnagram(){           
+    createAnagram(){ 
+       this.letters = [];           
        for (let initialLetter of this.initialWord) {
           this.letters.push(initialLetter);                     
        }; 
@@ -41,63 +42,41 @@ class Anagram {
    }  
 }
 
-//class definition for game rounds
-/*class Round {
-    constructor(anagram,targetToDisplay,userInput,outputTarget, winScreen,loseScreen) {
-        this.anagram = anagram;
-        this.targetToDisplay = targetToDisplay;
-        this.userInput = userInput;
-        this.outputTarget = outputTarget;
-    }
-    cleanScreen(){
-        $(this.targetToDisplay).empty();
-        $(this.outputTarget).empty();
-        $(this.userInput).val('');
-        $(this.winScreen).removeClass('visible');
-        $(this.loseScreen).removeClass('visible');
-    } 
-    displayAnagram() {
-        let anagramWord = this.anagram.createAnagram();
-        $(this.targetToDisplay).append(anagramWord);
-    }   
-    displayResult(){
-    let valueToCompare = this.userInput.val();    
-    let result = this.anagram.compareResult(valueToCompare);
-    $(this.outputTarget).empty();
-    if (result == true) {
-        $(this.outputTarget).append('You win!');
-        $(this.winScreen).addClass('visible');
-        $(this.loseScreen).removeClass('visible');
-    }
-    else {
-        $(this.outputTarget).append('Loser!');
-        $(this.loseScreen).addClass('visible');
-        $(this.winScreen).removeClass('visible');
-    }
- }
-}
-*/
-const anagram1 = new Anagram('Kira');
-//const round1 = new Round(anagram1,'.anagram h2', '.answer input', '.output h3', '.win', '.lose');
-
-
-
-
-
-
-/*function newGame() {
-    cleanAnagram();
-    displayAnagram(); 
+$(document).ready(function(){
+    const anagram1 = new Anagram(pickWord());
+    $('.anagram h2').append(anagram1.createAnagram());
     $('.answer').submit(function(){
-        compareResult();
+        $('.anagram').addClass('hidden');
+        let userInput = $('.answer input').val();
+        let result = anagram1.compareResult(userInput);
+        if (result == true) {            
+            $('.win').addClass('visible');
+            $('.lose').removeClass('visible');
+            $('.output h3').append('You win!');
+        }
+        else {
+            $('.win').removeClass('visible');
+            $('.lose').addClass('visible');
+            $('.output h3').append('Loser!');
+        }
     });
-}
-$(document).ready(function(){   
-  newGame(); 
-  $('#refresh').click(function(){
-        newGame(); 
-    });   
-})*/
+    $('#refresh').click(function(){
+        $('.win').removeClass('visible');
+        $('.lose').removeClass('visible');
+        $('.anagram').removeClass('hidden');
+        $('.answer input').val('');
+        $('.anagram h2').empty();
+        $('.output h3').empty();
+        const anagram1 = new Anagram(pickWord());
+        $('.anagram h2').append(anagram1.createAnagram());
+    }); 
+    $('#shuffle').click(function(){
+        $('.anagram h2').empty();
+        let shuffledWord = anagram1.createAnagram();
+        $('.anagram h2').append(shuffledWord);
+    });  
+})
+
 
 
 
