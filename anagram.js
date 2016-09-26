@@ -1,6 +1,9 @@
 var wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszula", "inwestygacja","algorytm", "dupa", "dziunia", "smoczek", "papierosy","wiosna"];
 
-
+function pickWord() {
+        let initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
+        return initialWord;
+    }
 //class definition for an anagram
 class Anagram {
     constructor(initialWord){         
@@ -20,12 +23,7 @@ class Anagram {
         this.letters[randomNumber] = letterToReplace;             
         }  
     }
-    pickWord() {
-         this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
-         return this.initialWord;
-    }
-    createAnagram(){ 
-       this.initialWord = this.pickWord();            
+    createAnagram(){           
        for (let initialLetter of this.initialWord) {
           this.letters.push(initialLetter);                     
        }; 
@@ -79,7 +77,7 @@ class Anagram {
  }
 }
 */
-const anagram1 = new Anagram();
+const anagram1 = new Anagram('Kira');
 //const round1 = new Round(anagram1,'.anagram h2', '.answer input', '.output h3', '.win', '.lose');
 
 
