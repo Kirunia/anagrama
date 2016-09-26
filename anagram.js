@@ -11,25 +11,24 @@ function pickRandomNumber(rangeStart, rangeEnd) {
 //class definition for an anagram
 class Anagram {
     constructor(initialWord){         
-        this.initialWord = initialWord;        
-        this.letters = [];
+        this.initialWord = initialWord; 
     }    
-    mixLetters() {
-    for (let j = 0; j < this.letters.length; j++) {
-        let letterToReplace = this.letters[j];
-        let randomNumber = pickRandomNumber(j + 1, this.letters.length);
-        let letterToReplaceWith = this.letters[randomNumber];
-        this.letters[j] = letterToReplaceWith;
-        this.letters[randomNumber] = letterToReplace;             
+    mixLetters(letters) {
+    for (let j = 0; j < letters.length; j++) {
+        let letterToReplace = letters[j];
+        let randomNumber = pickRandomNumber(j + 1, letters.length);
+        let letterToReplaceWith = letters[randomNumber];
+        letters[j] = letterToReplaceWith;
+        letters[randomNumber] = letterToReplace;             
         }  
     }
     createAnagram(){ 
-       this.letters = [];           
+       let letters = [];           
        for (let initialLetter of this.initialWord) {
-          this.letters.push(initialLetter);                     
+          letters.push(initialLetter);                     
        }; 
-       this.mixLetters(); 
-       let mixedWord = this.letters.join('');
+       this.mixLetters(letters); 
+       let mixedWord = letters.join('');
        return mixedWord;                 
    } 
    compareResult(valueToCompare) {
