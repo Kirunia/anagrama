@@ -43,7 +43,7 @@ class Anagram {
 }
 
 $(document).ready(function(){
-    const anagram1 = new Anagram(pickWord());
+    let anagram1 = new Anagram(pickWord());
     $('.anagram h2').append(anagram1.createAnagram());
     $('.answer').submit(function(){
         $('.anagram').addClass('hidden');
@@ -67,7 +67,7 @@ $(document).ready(function(){
         $('.answer input').val('');
         $('.anagram h2').empty();
         $('.output h3').empty();
-        const anagram1 = new Anagram(pickWord());
+        anagram1 = new Anagram(pickWord());
         $('.anagram h2').append(anagram1.createAnagram());
     }); 
     $('#shuffle').click(function(){
