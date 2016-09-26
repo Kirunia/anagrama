@@ -47,6 +47,7 @@ $(document).ready(function(){
     $('.anagram h2').append(anagram1.createAnagram());
     $('.answer').submit(function(){
         $('.anagram').addClass('hidden');
+        $('.shuffle').addClass('hidden');
         let userInput = $('.answer input').val();
         let result = anagram1.compareResult(userInput);
         if (result == true) {            
@@ -64,6 +65,7 @@ $(document).ready(function(){
         $('.win').removeClass('visible');
         $('.lose').removeClass('visible');
         $('.anagram').removeClass('hidden');
+        $('.shuffle').removeClass('hidden');
         $('.answer input').val('');
         $('.anagram h2').empty();
         $('.output h3').empty();
