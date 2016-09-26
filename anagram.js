@@ -24,7 +24,8 @@ class Anagram {
          this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
          return this.initialWord;
     }
-    createAnagram(){            
+    createAnagram(){ 
+       this.initialWord = this.pickWord();            
        for (let initialLetter of this.initialWord) {
           this.letters.push(initialLetter);                     
        }; 
