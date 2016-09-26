@@ -1,10 +1,18 @@
 var wordsList = ["mleko", "doniczka", "komputer", "chusteczki", "nocnik", "koszula", "inwestygacja","algorytm", "dupa", "dziunia", "smoczek", "papierosy","wiosna"];
-
-
+// game definitions
+class Game {
+    constructor(initialWord) {
+        this.initialWord = initialWord;
+    }
+    pickWord() {
+        this.initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
+        return initialWord;
+    }
+}
 //class definition for an anagram
 class Anagram {
-    constructor(word){         
-        this.word = word;
+    constructor(wordToMix){         
+        this.wordToMix = wordToMix;
         this.letters = [];
     }
     pickRandomNumber(rangeStart, rangeEnd) {
@@ -20,25 +28,25 @@ class Anagram {
         this.letters[randomNumber] = letterToReplace;             
         }  
     }
-    createAnagram(){
-       this.word = wordsList[Math.floor(Math.random() * wordsList.length)];       
-       for (let initialLetter of this.word) {
+    createAnagram(wordToMix){             
+       for (let initialLetter of this.wordToMix) {
           this.letters.push(initialLetter);                     
        }; 
        this.mixLetters(); 
-       let selectedWord = this.letters.join('');
-       return selectedWord;                 
+       let mixedWord = this.letters.join('');
+       return mixedWord;                 
    }   
 }
-
 //class definition for game rounds
 class Round {
-    constructor(anagram,targetToDisplay,userInput,outputTarget, winScreen,loseScreen) {
-        this.anagram = anagram;
+    constructor(initialWord, mixedWord, targetToDisplay, userInput, outputTarget, winScreen, loseScreen) {
+        this.initialWord = initialWord;
+        this.mixedWord = mixedWord;
         this.targetToDisplay = targetToDisplay;
         this.userInput = userInput;
         this.outputTarget = outputTarget;
     }
+    
     cleanScreen(){
         $(this.targetToDisplay).empty();
         $(this.outputTarget).empty();
@@ -49,7 +57,7 @@ class Round {
     compareResult(){
     let userInputValue = this.userInput.val();
     $(this.outputTarget).empty();
-    if (userInputValue == word) {
+    if (userInputValue == initialWord) {
         $(this.outputTarget).append('You win!');
         $(this.winScreen).addClass('visible');
         $(this.loseScreen).removeClass('visible');
@@ -60,10 +68,17 @@ class Round {
         $(this.winScreen).removeClass('visible');
     }
  }
+ displayAnagram(){     
+     $(this.targetToDisplay).append(mixedWord);
+    }
 }
 
-const anagram1 = new Anagram()
-const round1 = new Round();
+
+const game1 = new Game();
+const anagram1 = new Anagram(game1.pickWord());
+const round1 = new Round(game1.pickWord(), anagram1.createAnagram() , '.answer input', '.output h3', '.win', '.lose');
+
+
 
 
 
