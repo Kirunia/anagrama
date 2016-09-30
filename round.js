@@ -22,9 +22,10 @@ class Round {
         this.reshuffleCounter = this.reshuffleCounter + 1; 
         return mixedWord;       
     }
-    replayAnagram() {
+    refreshAnagram() {
         this.reshuffleCounter = 0;
-        this.roundScore = 0;
+        this.roundScore = 0;        
+        this.answerScore = 0;  
         let mixedWord = this.anagram.createAnagram();
         return mixedWord;
     }

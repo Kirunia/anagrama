@@ -12,6 +12,13 @@ body {
     transform:translate(-50%,-50%);
     text-align:center;    
 }
+.score {
+    position: absolute;
+    top:20px;
+    right:20px;
+    color:#bfc031;
+    font-size:35px;
+}
 .logo img {
     width:200px;
 }
