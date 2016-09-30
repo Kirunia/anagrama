@@ -22,7 +22,7 @@ class Anagram {
        this.mixedWord = letters.join('');
        return this.mixedWord;                 
    } 
-   compareResult(valueToCompare) {
+   compareWords(valueToCompare) {
        if (valueToCompare == this.initialWord) {
            return true;
        }

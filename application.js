@@ -1,18 +1,21 @@
 class Round {
-    constructor(anagram) {        
+    constructor(anagram, roundScore, answerScore) {        
         this.anagram = anagram;
-        this.answerScore = this.answerScore();        
+        this.answerScore = answerScore;        
         this.reshuffleCounter = 0;
-        this.roundScore = this.calculateRoundScore();
+        this.roundScore = roundScore;
     }    
-    answerScore(valueToCompare) {
-        let result = this.anagram.compareResult(valueToCompare);
+    compareResult(valueToCompare) {
+        let result = this.anagram.compareWords(valueToCompare);        
+        return result;
+    }
+    calculateAnswerScore(result) {
         let wordLength = this.anagram.mixedWord.length;
         if (result == true) {
-            this.score = this.score + 10 * wordLength;
+            this.answerScore = this.answerScore + 10 * wordLength;
         }
         else {
-            this.score = this.score - 20;
+            this.answerScore = this.answerScore - 20;
         }
         return this.answerScore;
     }
@@ -28,7 +31,7 @@ class Round {
         return mixedWord;
     }
     calculateRoundScore(){
-        this.roundScore = this.answerScore - this.reshuffleCounter * 10;
+        this.roundScore = this.roundScore + this.answerScore - this.reshuffleCounter * 10;
         return this.roundScore;
     }
 }
@@ -42,7 +45,7 @@ $(document).ready(function(){
         $('.anagram').addClass('hidden');
         $('.shuffle').addClass('hidden');
         let userInput = $('.answer input').val();
-        let result = anagram1.compareResult(userInput);        
+        let result = round1.compareResult(userInput);        
         if (result == true) {            
             $('.win').addClass('visible');
             $('.lose').removeClass('visible');
