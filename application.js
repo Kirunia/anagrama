@@ -5,20 +5,18 @@ class Round {
         this.reshuffleCounter = 0;
         this.roundScore = roundScore;
     }    
-    compareResult(valueToCompare) {
-        let result = this.anagram.compareWords(valueToCompare);        
-        return result;
-    }
-    calculateAnswerScore(result) {
+    calculateResult(valueToCompare) {
         let wordLength = this.anagram.mixedWord.length;
+        let result = this.anagram.compareWords(valueToCompare); 
         if (result == true) {
             this.answerScore = this.answerScore + 10 * wordLength;
         }
         else {
             this.answerScore = this.answerScore - 20;
-        }
-        return this.answerScore;
+        }       
+        return result;
     }
+   
     reshuffleWord() {       
         let mixedWord = this.anagram.createAnagram();
         this.reshuffleCounter = this.reshuffleCounter + 1; 
@@ -40,12 +38,14 @@ $(document).ready(function(){
     let anagram1 = new Anagram(pickWord());
     let round1 = new Round(anagram1);
     let score = 0;
+    round1.roundScore = 0;
+    round1.answerScore = 0;    
     $('.anagram h2').append(anagram1.createAnagram());
     $('.answer').submit(function(){
         $('.anagram').addClass('hidden');
         $('.shuffle').addClass('hidden');
         let userInput = $('.answer input').val();
-        let result = round1.compareResult(userInput);        
+        let result = round1.calculateResult(userInput);        
         if (result == true) {            
             $('.win').addClass('visible');
             $('.lose').removeClass('visible');
@@ -56,7 +56,7 @@ $(document).ready(function(){
             $('.lose').addClass('visible');
             $('.output h3').append('Loser!');
         }
-        score = round1.calculateRoundScore();
+        score = score + round1.calculateRoundScore();
     });
     $('#refresh').click(function(){
         score = 0;
@@ -74,7 +74,7 @@ $(document).ready(function(){
     $('#shuffle').click(function(){
         $('.anagram h2').empty();
         let shuffledWord = round1.reshuffleWord();
-        score = round1.calculateRoundScore();
+        score = score + round1.calculateRoundScore();
         $('.anagram h2').append(shuffledWord);
     });  
 })
