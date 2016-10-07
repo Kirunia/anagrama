@@ -1,4 +1,4 @@
-let wordsList = ["shoes", "milk", "table","opportunity","achievement", "hope", "sadness","summer", "bottle", "environment", "lion","potato","animal"];
+let wordsList = ["milk", "lion", "hope", "rope", "butterfly", "computer", "avocado", "mouse", "cheese", "robot", "flowers", "bird", "nationality", "environment", "hapiness", "hour", "occupation", "prescription", "country", "government"];
 
 function pickWord() {
         let initialWord = wordsList[Math.floor(Math.random() * wordsList.length)]; 
