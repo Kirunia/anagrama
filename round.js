@@ -1,8 +1,7 @@
 class Round {
     constructor(anagram, roundScore) {        
         this.anagram = anagram;
-        this.roundScore = 0;        
-        this.reshuffleCounter = 0;        
+        this.roundScore = 0;
     }    
     compareResult(valueToCompare) {
         let wordLength = this.anagram.mixedWord.length;
@@ -17,8 +16,7 @@ class Round {
     }
    
     reshuffleWord() {       
-        let mixedWord = this.anagram.createAnagram();
-        this.reshuffleCounter = this.reshuffleCounter + 1;
+        let mixedWord = this.anagram.createAnagram();        
         return mixedWord;       
     }
     refreshAnagram() {
