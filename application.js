@@ -1,14 +1,14 @@
 $(document).ready(function(){
-    let anagram1 = new Anagram(pickWord());
-    let round1 = new Round(anagram1);
-    let gameScore = 0;      
-    $('.anagram h2').append(round1.refreshAnagram());
-    $('.score span').append(gameScore);
+    let game1 = new Game();
+    let gameScore = 0;
+    let round1 = game1.addNewRound();  
+    $('.anagram h2').append(game1.currentRound.anagram.mixedWord);
+    $('.score span').append();
     $('.answer').submit(function(){
         $('.anagram').addClass('hidden');
         $('.shuffle').addClass('hidden');
         let userInput = $('.answer input').val();
-        let result = round1.compareResult(userInput);        
+        let result = game1.currentRound.compareResult(userInput);        
         if (result == true) {            
             $('.win').addClass('visible');
             $('.lose').removeClass('visible');
@@ -19,7 +19,7 @@ $(document).ready(function(){
             $('.lose').addClass('visible');
             $('.output h3').append('Loser!');
         }
-        gameScore = gameScore + round1.roundScore;
+        gameScore = gameScore + game1.currentRound.roundScore;
         $('.score span').empty();
         $('.score span').append(gameScore);
     });
@@ -31,10 +31,9 @@ $(document).ready(function(){
         $('.answer input').val('');
         $('.anagram h2').empty();
         $('.output h3').empty();
-        $('.score span').empty();
-        anagram1 = new Anagram(pickWord());
-        round1 = new Round(anagram1);
-        $('.anagram h2').append(round1.refreshAnagram());
+        $('.score span').empty();        
+        round1 = game1.addNewRound();
+        $('.anagram h2').append(game1.currentRound.anagram.mixedWord);
         $('.score span').append(gameScore);
     }); 
     $('#shuffle').click(function(){

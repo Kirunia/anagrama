@@ -19,8 +19,8 @@ class Round {
         let mixedWord = this.anagram.createAnagram();        
         return mixedWord;       
     }
-    refreshAnagram() {
-        let mixedWord = this.anagram.createAnagram();
-        return mixedWord;
+    initiateAnagram() {
+        let newWord = this.anagram.createAnagram();
+        return newWord;
     }    
 }
