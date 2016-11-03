@@ -1,6 +1,6 @@
 class Game {
   constructor(gameScore,currentRound,newAnagram) {
-    this.gameScore = gameScore;
+    this.gameScore = 0;
     this.currentRound = currentRound;
     this.roundsCollection = [];    
   }
