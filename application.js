@@ -7,30 +7,18 @@ $(document).ready(function(){
         $('.anagram').addClass('hidden');
         $('.shuffle').addClass('hidden');
         let userInput = $('.answer input').val();
-        let result = game1.currentRound.compareResult(userInput);        
-        if (result == true) {            
-            $('.win').addClass('visible');
-            $('.lose').removeClass('visible');
-            $('.output h3').append('You win!');            
+        game1.endRound(userInput);                
+        if (game1.roundResult) {  
+            showEndRoundScreen('.win','.lose', 'You win!')
         }
         else {
-            $('.win').removeClass('visible');
-            $('.lose').addClass('visible');
-            $('.output h3').append('Loser!');
-        }
-        game1.gameScore = game1.gameScore + game1.currentRound.roundScore;
+            showEndRoundScreen('.lose','.win','Loser!')
+        }        
         $('.score span').empty();
         $('.score span').append(game1.gameScore);
     });
     $('#refresh').click(function(){        
-        $('.win').removeClass('visible');
-        $('.lose').removeClass('visible');
-        $('.anagram').removeClass('hidden');
-        $('.shuffle').removeClass('hidden');
-        $('.answer input').val('');
-        $('.anagram h2').empty();
-        $('.output h3').empty();
-        $('.score span').empty();        
+        clearUi();
         round1 = game1.addNewRound();
         $('.anagram h2').append(game1.currentRound.anagram.mixedWord);
         $('.score span').append(game1.gameScore);
@@ -38,9 +26,9 @@ $(document).ready(function(){
     $('#shuffle').click(function(){
         $('.anagram h2').empty();
         let shuffledWord = round1.reshuffleWord();
-        game1.gameScore = game1.gameScore - 10;
+        game1.updateGameScore();
         $('.score span').empty();
-        $('.score span').append(game1.gameScore);
+        $('.score span').append(game1.currentScore);
         $('.anagram h2').append(shuffledWord);
     });  
 })

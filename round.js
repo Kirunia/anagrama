@@ -16,7 +16,8 @@ class Round {
     }
    
     reshuffleWord() {       
-        let mixedWord = this.anagram.createAnagram();        
+        let mixedWord = this.anagram.createAnagram(); 
+        this.roundScore = this.roundScore - 10;       
         return mixedWord;       
     }
     initiateAnagram() {
